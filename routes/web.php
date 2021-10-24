@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Backend\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('layouts.backend.app');
 });
+
+Route::get('/test', function () {
+    return view('layouts.backend.app');
+});
+
+Route::get('/{any}', [DashboardController::class, 'index']);

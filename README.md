@@ -4,7 +4,9 @@ This is a blog using vue,php with laravel fremwork. this project only learning p
 
 ## Packages Used
 
--   Install ``
+-   Install `npm install`
+-   Install `npm install vue`
+-   Install `npm install vue-router`
 
 ## Installation Instructions
 
