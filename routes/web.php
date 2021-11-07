@@ -15,11 +15,8 @@ use App\Http\Controllers\Backend\DashboardController;
 */
 
 Route::get('/', function () {
-    return view('layouts.backend.app');
-});
-
-Route::get('/test', function () {
-    return view('layouts.backend.app');
+    return view('welcome');
 });
 
 Route::get('/{any}', [DashboardController::class, 'index']);
+Route::get('/{any}/{id}', [DashboardController::class, 'index']);
