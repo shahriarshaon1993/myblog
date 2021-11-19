@@ -28,6 +28,7 @@ Route::post('/app/create-category', [CategoryController::class, 'addCategory']);
 Route::post('/app/edit-category', [CategoryController::class, 'updateCategory']);
 Route::post('/app/category-file-upload', [CategoryController::class, 'uploadCategoryFile']);
 Route::post('/app/delete-category-image', [CategoryController::class, 'deleteCategoryImage']);
+Route::post('/app/delete-category', [CategoryController::class, 'destroyCategory']);
 
 Route::get('/', function () {
     return view('welcome');

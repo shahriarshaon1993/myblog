@@ -46,7 +46,7 @@
                                 <td class="text-center">{{ category.created_at }}</td>
                                 <td class="text-center">
                                     <a href="#" class="btn btn-primary btn-sm" @click="showEditModel(category, i)">Edit</a>
-                                    <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                                    <a href="#" class="btn btn-danger btn-sm" @click="showDeletingModal(category, i)" :loading="category.isDeleting">Delete</a>
                                 </td>
                             </tr>
                             </tbody>
@@ -137,6 +137,21 @@
 
                 </Modal>
 
+                <!-- Delete Modal -->
+                <!-- Delete alert modal -->
+                <Modal v-model="showDeleteModal" width="360">
+                    <p slot="header" style="color:#f60;text-align:center">
+                        <Icon type="ios-information-circle"></Icon>
+                        <span>Delete confirmation</span>
+                    </p>
+                    <div style="text-align:center">
+                        <p>Are you sure! you want to delete this tag ?</p>
+                    </div>
+                    <div slot="footer">
+                        <Button type="error" size="large" long :loading="isDeleting" :disabled="isDeleting" @click="deleteCategory">Delete</Button>
+                    </div>
+                </Modal>
+
             </div>
         </div>
     </div>
@@ -162,7 +177,11 @@ export default ({
             },
             index: -1,
             isIconImageNew: false,
-            isEditingItem: false
+            isEditingItem: false,
+            deleteItem: {},
+            showDeleteModal: false,
+            isDeleting: false,
+            deletingIndex: -1,
         }
     },
 
@@ -282,7 +301,27 @@ export default ({
         {
             this.isEditingItem = false
             this.editModal = false
-        }
+        },
+
+        // delete category
+        async deleteCategory() {
+            this.isDeleting = true
+            const res = await this.callApi('post', 'app/delete-category', this.deleteItem)
+            if(res.status === 200) {
+                this.categoryList.splice(this.deletingIndex, 1)
+                this.success('Category has been deleted successfully!')
+            }else {
+                this.swr()
+            }
+            this.isDeleting = false
+            this.showDeleteModal = false
+        },
+
+        showDeletingModal(category, i) {
+            this.deleteItem = category
+            this.deletingIndex = i
+            this.showDeleteModal = true
+        },
     },
 
     async created() {

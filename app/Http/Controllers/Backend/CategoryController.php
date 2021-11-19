@@ -83,7 +83,24 @@ class CategoryController extends Controller
     {
         $fileName = $request->imageName;
         $this->deleteFileFromServer($fileName);
-        return $fileName;
+        return 'Done';
+    }
+
+    /**
+     * Destroy data from categories tacle column
+     *
+     * @param  mixed $request
+     * @return void
+     */
+    public function destroyCategory(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required'
+        ]);
+        $category = Category::where('id', $request->id)->first();
+        $this->deleteFileFromServer($category->iconImage);
+
+        return Category::where('id', $request->id)->delete();
     }
 
     /**
