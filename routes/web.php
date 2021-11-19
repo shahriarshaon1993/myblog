@@ -25,6 +25,7 @@ Route::post('/app/delete-tag', [TagController::class, 'deleteTag']);
 // Category Routes
 Route::get('/app/get-category', [CategoryController::class, 'getAllCategories']);
 Route::post('/app/create-category', [CategoryController::class, 'addCategory']);
+Route::post('/app/edit-category', [CategoryController::class, 'updateCategory']);
 Route::post('/app/category-file-upload', [CategoryController::class, 'uploadCategoryFile']);
 Route::post('/app/delete-category-image', [CategoryController::class, 'deleteCategoryImage']);
 

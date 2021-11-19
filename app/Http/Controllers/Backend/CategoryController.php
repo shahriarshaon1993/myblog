@@ -55,6 +55,25 @@ class CategoryController extends Controller
     }
 
     /**
+     * Update category in database
+     *
+     * @param  mixed $request
+     * @return void
+     */
+    public function updateCategory(Request $request)
+    {
+        $this->validate($request, [
+            'categoryName' => 'required',
+            'iconImage' => 'required'
+        ]);
+
+        return Category::where('id', $request->id)->update([
+            'categoryName' => $request->categoryName,
+            'iconImage' => $request->iconImage
+        ]);
+    }
+
+    /**
      * Delete category image file from directory
      *
      * @param  mixed $request
@@ -64,7 +83,7 @@ class CategoryController extends Controller
     {
         $fileName = $request->imageName;
         $this->deleteFileFromServer($fileName);
-        return 'done';
+        return $fileName;
     }
 
     /**
@@ -75,7 +94,7 @@ class CategoryController extends Controller
      */
     public function deleteFileFromServer($fileName)
     {
-        $filePath = public_path().'/uploads/'.$fileName;
+        $filePath = public_path().$fileName;
         if(file_exists($filePath)) {
             @unlink($filePath);
         }
