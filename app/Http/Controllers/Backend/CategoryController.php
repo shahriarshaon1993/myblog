@@ -2,11 +2,41 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
 {
+    /**
+     * Get all categories from database
+     *
+     * @return void
+     */
+    public function getAllCategories()
+    {
+        return Category::orderBy('id', 'desc')->get();
+    }
+
+    /**
+     * Add category in database
+     *
+     * @param  mixed $request
+     * @return void
+     */
+    public function addCategory(Request $request)
+    {
+        $this->validate($request, [
+            'categoryName' => 'required',
+            'iconImage' => 'required'
+        ]);
+
+        return Category::create([
+            'categoryName' => $request->categoryName,
+            'iconImage' => $request->iconImage
+        ]);
+    }
+
     /**
      * Category icon image upload logic
      *

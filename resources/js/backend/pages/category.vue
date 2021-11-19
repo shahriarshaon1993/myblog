@@ -30,16 +30,20 @@
                             <thead>
                             <tr>
                                 <th class="text-center">#</th>
+                                <th>Icon image</th>
                                 <th>Tag name</th>
                                 <th class="text-center">Created at</th>
                                 <th class="text-center">Actions</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td class="text-center text-muted">01</td>
-                                <td>Laravel</td>
-                                <td class="text-center">11:02PM 2 july 2021</td>
+                            <tr v-for="(category,i) in categoryList" :key="i" v-if="categoryList.length">
+                                <td class="text-center text-muted">{{ i+1 }}</td>
+                                <td class="text-center">
+                                    <img :src="category.iconImage" width="120">
+                                </td>
+                                <td>{{ category.categoryName }}</td>
+                                <td class="text-center">{{ category.created_at }}</td>
                                 <td class="text-center">
                                     <a href="#" class="btn btn-primary btn-sm">Edit</a>
                                     <a href="#" class="btn btn-danger btn-sm">Delete</a>
@@ -58,7 +62,7 @@
                     :closable="false"
                     >
 
-                    <Input placeholder="Enter category name"/>
+                    <Input v-model="data.categoryName" placeholder="Enter category name"/>
                     <div class="my-3">
                         <Upload
                             ref="uploads"
@@ -86,7 +90,7 @@
 
                     <div slot="footer">
                         <Button type="default" @click="addModal=false">Close</Button>
-                        <Button type="primary">Add category</Button>
+                        <Button type="primary" @click="addCategory" :disabled="isAdding" :loading="isAdding">{{ isAdding ? 'Adding...' : 'Add category' }}</Button>
                     </div>
 
                 </Modal>
@@ -106,7 +110,9 @@ export default ({
                 iconImage: ''
             },
             token: '',
-            addModal: false
+            addModal: false,
+            isAdding: false,
+            categoryList: [],
         }
     },
 
@@ -136,6 +142,34 @@ export default ({
             });
         },
 
+        async addCategory() {
+            if(this.data.categoryName.trim()=='') return this.error('Category name is requried')
+            if(this.data.iconImage.trim()=='') return this.error('Icon image is requried')
+            // upload image full path
+            this.data.iconImage = `/uploads/${this.data.iconImage}`
+            const res = await this.callApi('post', 'app/create-category', this.data)
+
+            if(res.status === 201) {
+                this.categoryList.unshift(res.data)
+                this.success('Category has been added successfully')
+                this.addModal = false
+                this.data.categoryName = ''
+                this.data.iconImage = ''
+                this.$refs.uploads.clearFiles()
+            }else {
+                if(res.status === 422) {
+                    if(res.data.errors.categoryName) {
+                        this.error(res.data.errors.categoryName[0])
+                    }
+                    if(res.data.errors.iconImage) {
+                        this.error(res.data.errors.iconImage[0])
+                    }
+                }else {
+                    this.swr()
+                }
+            }
+        },
+
         async deleteImage() {
             let image = this.data.iconImage
             this.data.iconImage = ''
@@ -150,6 +184,12 @@ export default ({
 
     async created() {
         this.token = window.Laravel.csrfToken
+        const res = await this.callApi('get', 'app/get-category')
+        if(res.status === 200) {
+            this.categoryList = res.data
+        }else {
+            this.swr()
+        }
     }
 })
 

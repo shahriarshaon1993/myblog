@@ -23,8 +23,10 @@ Route::post('/app/edit-tag', [TagController::class, 'updateTag']);
 Route::post('/app/delete-tag', [TagController::class, 'deleteTag']);
 
 // Category Routes
+Route::get('/app/get-category', [CategoryController::class, 'getAllCategories']);
+Route::post('/app/create-category', [CategoryController::class, 'addCategory']);
 Route::post('/app/category-file-upload', [CategoryController::class, 'uploadCategoryFile']);
-Route::post('app/delete-category-image', [CategoryController::class, 'deleteCategoryImage']);
+Route::post('/app/delete-category-image', [CategoryController::class, 'deleteCategoryImage']);
 
 Route::get('/', function () {
     return view('welcome');
