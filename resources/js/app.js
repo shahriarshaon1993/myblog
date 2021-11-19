@@ -2,6 +2,11 @@ require('./bootstrap');
 
 import Vue from 'vue'
 import router from './router'
+import common from './common'
+import ViewUI from 'view-design';
+import 'view-design/dist/styles/iview.css';
+Vue.use(ViewUI)
+Vue.mixin(common)
 
 Vue.component('mainapp', require('./components/backend/mainapp.vue').default)
 Vue.component('dashboardHeader', require('./components/backend/partials/header.vue').default)

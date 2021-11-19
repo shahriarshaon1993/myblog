@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\TagController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +15,14 @@ use App\Http\Controllers\Backend\DashboardController;
 |
 */
 
+Route::post('/app/create-tag', [TagController::class, 'store']);
+Route::get('/app/get-tag', [TagController::class, 'index']);
+Route::post('/app/edit-tag', [TagController::class, 'updateTag']);
+Route::post('/app/delete-tag', [TagController::class, 'deleteTag']);
+
+
 Route::get('/', function () {
     return view('welcome');
 });
 
 Route::get('/{any}', [DashboardController::class, 'index']);
-Route::get('/{any}/{id}', [DashboardController::class, 'index']);
