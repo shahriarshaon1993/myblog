@@ -2,8 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 Vue.use(Router)
 
-import dashbord from './components/backend/pages/dashboard.vue'
-import tags from './components/backend/pages/tags.vue'
+import dashbord from './backend/pages/dashboard.vue'
+import tags from './backend/pages/tags.vue'
+import category from './backend/pages/category.vue'
 const routes = [
     // admin dashboard route
     {
@@ -14,6 +15,11 @@ const routes = [
     {
         path: '/tags',
         component: tags
+    },
+
+    {
+        path: '/categories',
+        component: category
     },
 ]
 

@@ -11,6 +11,16 @@
         <meta name="msapplication-tap-highlight" content="no">
 
         <link href="{{ asset('main.css') }}" rel="stylesheet"></head>
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet"></head>
+
+        <script>
+            (function () {
+                window.Laravel = {
+                    csrfToken: '{{ csrf_token() }}'
+                };
+            })();
+        </script>
+
     </head>
     <body>
         <div id="app">

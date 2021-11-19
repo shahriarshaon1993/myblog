@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\TagController;
@@ -15,11 +16,15 @@ use App\Http\Controllers\Backend\TagController;
 |
 */
 
+// Tag Routes
 Route::post('/app/create-tag', [TagController::class, 'store']);
 Route::get('/app/get-tag', [TagController::class, 'index']);
 Route::post('/app/edit-tag', [TagController::class, 'updateTag']);
 Route::post('/app/delete-tag', [TagController::class, 'deleteTag']);
 
+// Category Routes
+Route::post('/app/category-file-upload', [CategoryController::class, 'uploadCategoryFile']);
+Route::post('app/delete-category-image', [CategoryController::class, 'deleteCategoryImage']);
 
 Route::get('/', function () {
     return view('welcome');

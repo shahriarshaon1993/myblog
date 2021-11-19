@@ -9,9 +9,9 @@ Vue.use(ViewUI)
 Vue.mixin(common)
 
 Vue.component('mainapp', require('./components/backend/mainapp.vue').default)
-Vue.component('dashboardHeader', require('./components/backend/partials/header.vue').default)
-Vue.component('dashboardSidebar', require('./components/backend/partials/sidebar.vue').default)
-Vue.component('dashboardFooter', require('./components/backend/partials/footer.vue').default)
+Vue.component('dashboardHeader', require('./backend/partials/header.vue').default)
+Vue.component('dashboardSidebar', require('./backend/partials/sidebar.vue').default)
+Vue.component('dashboardFooter', require('./backend/partials/footer.vue').default)
 const app = new Vue({
     router
 }).$mount('#app')
