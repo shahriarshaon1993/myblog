@@ -5,6 +5,10 @@ Vue.use(Router)
 import dashbord from './backend/pages/dashboard.vue'
 import tags from './backend/pages/tags.vue'
 import category from './backend/pages/category.vue'
+
+// Vuex routes
+import usecom from './vuex/usecom.vue'
+
 const routes = [
     // admin dashboard route
     {
@@ -20,6 +24,11 @@ const routes = [
     {
         path: '/categories',
         component: category
+    },
+
+    {
+        path: '/usecom',
+        component: usecom
     },
 ]
 

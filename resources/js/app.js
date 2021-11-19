@@ -2,6 +2,7 @@ require('./bootstrap');
 
 import Vue from 'vue'
 import router from './router'
+import store from './store'
 import common from './common'
 import ViewUI from 'view-design';
 import 'view-design/dist/styles/iview.css';
@@ -13,5 +14,7 @@ Vue.component('dashboardHeader', require('./backend/partials/header.vue').defaul
 Vue.component('dashboardSidebar', require('./backend/partials/sidebar.vue').default)
 Vue.component('dashboardFooter', require('./backend/partials/footer.vue').default)
 const app = new Vue({
-    router
-}).$mount('#app')
+    el:'#app',
+    router,
+    store
+})
