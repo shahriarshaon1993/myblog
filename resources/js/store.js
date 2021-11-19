@@ -7,9 +7,21 @@ export default new Vuex.Store({
         counter: 1000
     },
 
+    getters: {
+        getCounter(state) {
+            return state.counter
+        }
+    },
+
     mutations: {
         changeTheCounter(state, data) {
             state.counter += data
+        }
+    },
+
+    actions: {
+        changeCounterAction({commit}, data) {
+            commit('changeTheCounter', data)
         }
     }
 })
